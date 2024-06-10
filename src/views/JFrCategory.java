@@ -14,7 +14,7 @@ import model.MobilePhone;
  * @author nguyen-cong-hau
  */
 public class JFrCategory extends javax.swing.JFrame {
-
+//  Khởi tạo đối tương phoneDAO
     MobilePhoneDAO phoneDAO = new MobilePhoneDAO();
 
     /**
@@ -22,32 +22,58 @@ public class JFrCategory extends javax.swing.JFrame {
      */
     public JFrCategory() {
         initComponents();
+//        Hiển thị ứng dụng khi chạy ở giữa màn hình
         setLocationRelativeTo(this);
 
     }
-
+    //Hàm này là để hiển thị data lên table
     public void fillTable() {
-        DefaultTableModel model = (DefaultTableModel) tbMobilePhone.getModel();
-        model.setRowCount(0);
-        for (MobilePhone all : phoneDAO.getAlls()) {
-            Object[] rowData = new Object[5];
-            rowData[0] = all.getId();
-            rowData[1] = all.getName();
-            rowData[2] = all.getQuantity();
-            rowData[3] = all.getCategoryID();
-            rowData[4] = all.getPrice();
-            model.addRow(rowData);
-        }
+    // Lấy mô hình dữ liệu của bảng tbMobilePhone và ép kiểu về DefaultTableModel
+    DefaultTableModel model = (DefaultTableModel) tbMobilePhone.getModel();
+    
+    // Đặt số hàng của bảng về 0, tức là xóa tất cả các hàng hiện tại
+    model.setRowCount(0);
+    
+    // Duyệt qua tất cả các đối tượng MobilePhone trong danh sách trả về từ phương thức getAlls() của phoneDAO
+    for (MobilePhone all : phoneDAO.getAlls()) {
+        // Tạo một mảng đối tượng để lưu trữ dữ liệu của một hàng, với 5 cột tương ứng
+        Object[] rowData = new Object[5];
+        
+        // Gán giá trị ID của điện thoại di động vào cột đầu tiên
+        rowData[0] = all.getId();
+        
+        // Gán giá trị tên của điện thoại di động vào cột thứ hai
+        rowData[1] = all.getName();
+        
+        // Gán giá trị số lượng của điện thoại di động vào cột thứ ba
+        rowData[2] = all.getQuantity();
+        
+        // Gán giá trị ID danh mục của điện thoại di động vào cột thứ tư
+        rowData[3] = all.getCategoryID();
+        
+        // Gán giá trị giá của điện thoại di động vào cột thứ năm
+        rowData[4] = all.getPrice();
+        
+        // Thêm một hàng mới vào mô hình dữ liệu của bảng với các giá trị vừa gán
+        model.addRow(rowData);
     }
+}
+
 
     private void updateProductTable(List<MobilePhone> products) {
-        DefaultTableModel model = (DefaultTableModel) tbMobilePhone.getModel();
-        model.setRowCount(0); // Clear existing data
+    // Lấy mô hình dữ liệu của bảng tbMobilePhone và ép kiểu về DefaultTableModel
+    DefaultTableModel model = (DefaultTableModel) tbMobilePhone.getModel();
+    
+    // Đặt số hàng của bảng về 0, tức là xóa tất cả các hàng hiện tại
+    model.setRowCount(0); // Xóa dữ liệu hiện có
 
-        for (MobilePhone product : products) {
-            model.addRow(new Object[]{product.getId(), product.getName(), product.getQuantity(), product.getCategoryID(), product.getPrice()});
-        }
+    // Duyệt qua tất cả các đối tượng MobilePhone trong danh sách truyền vào
+    for (MobilePhone product : products) {
+        // Thêm một hàng mới vào mô hình dữ liệu của bảng với các giá trị của đối tượng MobilePhone
+        model.addRow(new Object[]{product.getId(), product.getName(), product.getQuantity(), product.getCategoryID(), product.getPrice()});
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
